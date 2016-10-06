@@ -73,6 +73,20 @@
 		});
 	};
 
+	exports.readWordLE = function( address ){
+		return exports.readmem( address )
+		.then( function( buffer ){
+			return buffer.readUInt32LE(0);
+		});
+	};
+
+	exports.readWordBE = function( address ){
+		return exports.readmem( address )
+		.then( function( buffer ){
+			return buffer.readUInt32BE(0);
+		});
+	};
+
 	/**
 	 *
 	 * @param arrayOfCommands

@@ -1,6 +1,6 @@
 {
   "name": "node-jlink",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "jLinkexe driver for nodejs",
   "main": "index.js",
   "scripts": {
