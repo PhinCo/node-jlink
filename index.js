@@ -87,6 +87,28 @@
 		});
 	};
 
+	exports.identify = function(){
+		function extractText( string, pattern ){
+			var matches = string.match( pattern );
+			if( matches && matches.length >= 2 ) return matches[1];
+			return null;
+		}
+
+		return jlinkexe.executeJlinkCommands()
+			.then( function( result ){
+				var dllVersion = extractText( result.stdout, "DLL version V(.*)," );
+				var serialNumber = extractText( result.stdout, "S\/N: (.*)" );
+				var firmware = extractText( result.stdout, "Firmware: (.*)" );
+
+				var output = {};
+				if( dllVersion ) output.dllVersion = dllVersion;
+				if( serialNumber ) output.serialNumber = serialNumber;
+				if( firmware ) output.firmware = firmware;
+
+				return output;
+			});
+	};
+
 	/**
 	 *
 	 * @param arrayOfCommands

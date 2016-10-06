@@ -8,6 +8,10 @@
 	})
 	.then( function( word ){
 		console.log( utils.numberToHexString( word, 8));
+	}).then( function() {
+		return jlink.identify();
+	}).then( function( identity ){
+		console.log( identity );
 	})
 
 
