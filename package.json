@@ -1,0 +1,26 @@
+{
+  "name": "node-jlink",
+  "version": "1.0.2",
+  "description": "jLinkexe driver for nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://homedad@github.com/PhinCo/node-jlink.git"
+  },
+  "keywords": [
+    "jlink",
+    "segger"
+  ],
+  "author": "Scott Eklund",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PhinCo/node-jlink/issues"
+  },
+  "homepage": "https://github.com/PhinCo/node-jlink#readme",
+  "dependencies": {
+    "bluebird": "^3.4.6"
+  }
+}
