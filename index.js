@@ -106,6 +106,12 @@
 				if( firmware ) output.firmware = firmware;
 
 				return output;
+			})
+			.catch( function( error ){
+				if( error && error.message && error.message.indexOf("Can not connect") !== -1 ){
+					return Promise.resolve();
+				}
+				throw error;
 			});
 	};
 
