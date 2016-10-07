@@ -12,6 +12,8 @@
 		return jlink.identify();
 	}).then( function( identity ){
 		console.log( identity );
+	}).then( function(){
+		return jlink.resume();
 	})
 
 

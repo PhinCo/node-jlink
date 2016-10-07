@@ -115,6 +115,14 @@
 			});
 	};
 
+	exports.resume = function(){
+		return jlinkexe.executeJlinkCommands( ["g"])
+		.then( function( result ){
+			if( result.error ) return Promise.reject( result.error );
+			else return Promise.resolve( true );
+		});
+	};
+
 	/**
 	 *
 	 * @param arrayOfCommands
