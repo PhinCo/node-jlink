@@ -1,9 +1,17 @@
 ( function(){
 	var jlink = require("../index");
 	var utils = require("../lib/utils");
-	return jlink.readmem( 0x000000000, 0x4 )
+	return jlink.isJLinkEXEInstalled()
+	.then( function( isInstalled ){
+		console.log( 'JLinkEXE isInstalled = ', isInstalled );
+	})
+	.then( function(){
+		return jlink.readmem( 0x000000000, 0x4 )
+	})
 	.then( function( buffer ){
 		console.log( buffer );
+	})
+	.then( function( buffer ){
 		return jlink.readWordLE( 0x00000000 );
 	})
 	.then( function( word ){

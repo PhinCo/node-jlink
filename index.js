@@ -9,14 +9,21 @@
 		jlinkexe.JLinkExeOptions = optionsString;
 	};
 
+	exports.isJLinkEXEInstalled = function(){
+		return jlinkexe.executeJlinkCommands( ["exit"] )
+		.then( function( result ){
+			return ( result.code === 0 && !result.error );
+		});
+
+	};
+
 	/**
 	 * @return Promise, resolve( true ) or reject( Error )
 	 */
 	exports.reset = function(){
 		return jlinkexe.executeJlinkCommands( ["r","g"] )
 		.then( function( result ){
-			if( result.error ) return Promise.reject( result.error );
-			else return Promise.resolve( true );
+			return ( result.code === 0 && !result.error );
 		});
 	};
 
@@ -26,8 +33,7 @@
 	exports.pinReset = function(){
 		return jlinkexe.executeJlinkCommands( ["w4 40000544 1", "r"])
 		.then( function( result ){
-			if( result.error ) return Promise.reject( result.error );
-			else return Promise.resolve( true );
+			return ( result.code === 0 && !result.error );
 		});
 	};
 
@@ -37,8 +43,7 @@
 	exports.eraseAll = function(){
 		return jlinkexe.executeJlinkCommands( ["h", "w4 4001e504 2", "w4 4001e50c 1", "sleep 100", "r"])
 		.then( function( result ){
-			if( result.error ) return Promise.reject( result.error );
-			else return Promise.resolve( true );
+			return ( result.code === 0 && !result.error );
 		});
 	};
 
@@ -49,8 +54,7 @@
 		if( !firmwareFilePath ) throw new Error("node-jlink: flash() requires firmwareFilePath");
 		return jlinkexe.executeJlinkCommands( ["r", "h", "loadfile " + firmwareFilePath, "r", "g" ])
 		.then( function( result ){
-			if( result.error ) return Promise.reject( result.error );
-			else return Promise.resolve( true );
+			return ( result.code === 0 && !result.error );
 		});
 	};
 
@@ -118,8 +122,7 @@
 	exports.resume = function(){
 		return jlinkexe.executeJlinkCommands( ["g"])
 		.then( function( result ){
-			if( result.error ) return Promise.reject( result.error );
-			else return Promise.resolve( true );
+			return ( result.code === 0 && !result.error );
 		});
 	};
 
