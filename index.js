@@ -5,6 +5,10 @@
 
 	exports.jlinkexe = jlinkexe;
 
+	exports.setJlinkEXECommand = function( command ){
+		jlinkexe.JLinkExe = command;
+	};
+
 	exports.setJLinkEXEOptions = function( optionsString ){
 		jlinkexe.JLinkExeOptions = optionsString;
 	};
