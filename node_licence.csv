@@ -1,0 +1,6 @@
+name,path,email,licenses,publisher,repo,depth,isProduction
+@connectedyard/node-jlink@1.0.9,,,MIT,Scott Eklund,git+https://homedad@github.com/PhinCo/node-jlink,1,true
+bluebird@3.4.6,bluebird,petka_antonov@hotmail.com,MIT,Petka Antonov,https://github.com/petkaantonov/bluebird,1,true
+commander@2.9.0,commander,tj@vision-media.ca,MIT,TJ Holowaychuk,https://github.com/tj/commander.js,1,true
+graceful-readlink@1.0.1,commander/node_modules/graceful-readlink,,MIT,zhiyelee,https://github.com/zhiyelee/graceful-readlink,3,true
+@connectedyard/node-jlink@1.0.9,,,MIT,Scott Eklund,git+https://homedad@github.com/PhinCo/node-jlink,1,
