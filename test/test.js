@@ -30,6 +30,7 @@
 // 	console.log( "Reset Result: ", result );
 // })
 	.catch( function( error ){
-		console.log("Test Fail: ", error );
+		console.log("Test Failed");
+		throw error;
 	});
 })();

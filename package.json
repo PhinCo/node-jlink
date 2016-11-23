@@ -1,6 +1,6 @@
 {
   "name": "@connectedyard/node-jlink",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "description": "jLinkexe driver for nodejs",
   "main": "index.js",
   "bin": {
