@@ -2,6 +2,8 @@
 
 	var jlinkexe = require('./lib/jlinkexe');
 	var utils = require('./lib/utils');
+	var spawn = require('child_process').spawn;
+	var isInstalled = require('./lib/is_installed');
 
 	exports.jlinkexe = jlinkexe;
 
@@ -14,10 +16,11 @@
 	};
 
 	exports.isJLinkEXEInstalled = function(){
-		return jlinkexe.executeJlinkCommands( ["exit"] )
-		.then( function( result ){
-			return ( result.code === 0 && !result.error );
-		});
+		return isInstalled( jlinkexe.JLinkExe );
+		// return jlinkexe.executeJlinkCommands( ["exit"] )
+		// .then( function( result ){
+		// 	return ( result.code === 0 && !result.error );
+		// });
 
 	};
 

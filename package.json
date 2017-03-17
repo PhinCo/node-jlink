@@ -1,6 +1,6 @@
 {
   "name": "@connectedyard/node-jlink",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "jLinkexe driver for nodejs",
   "main": "index.js",
   "bin": {
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/PhinCo/node-jlink#readme",
   "dependencies": {
     "bluebird": "^3.4.6",
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "lodash": "^4.17.4"
   }
 }
