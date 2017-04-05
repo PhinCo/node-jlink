@@ -1,6 +1,7 @@
 name,path,email,licenses,publisher,repo,depth,isProduction
-@connectedyard/node-jlink@1.0.9,,,MIT,Scott Eklund,git+https://homedad@github.com/PhinCo/node-jlink,1,false
-bluebird@3.4.6,,petka_antonov@hotmail.com,MIT,Petka Antonov,https://github.com/petkaantonov/bluebird,1,false
-commander@2.9.0,,tj@vision-media.ca,MIT,TJ Holowaychuk,https://github.com/tj/commander.js,1,false
-graceful-readlink@1.0.1,,,MIT,zhiyelee,https://github.com/zhiyelee/graceful-readlink,1,false
-@connectedyard/node-jlink@1.0.9,,,MIT,Scott Eklund,git+https://homedad@github.com/PhinCo/node-jlink,1,false
+@connectedyard/node-jlink@1.1.1,,,MIT,Scott Eklund,git+https://homedad@github.com/PhinCo/node-jlink,1,true
+bluebird@3.4.6,,petka_antonov@hotmail.com,MIT,Petka Antonov,https://github.com/petkaantonov/bluebird,1,true
+commander@2.9.0,,tj@vision-media.ca,MIT,TJ Holowaychuk,https://github.com/tj/commander.js,1,true
+graceful-readlink@1.0.1,,,MIT,zhiyelee,https://github.com/zhiyelee/graceful-readlink,1,true
+lodash@4.17.4,,john.david.dalton@gmail.com,MIT,John-David Dalton,https://github.com/lodash/lodash,1,true
+@connectedyard/node-jlink@1.1.1,,,MIT,Scott Eklund,git+https://homedad@github.com/PhinCo/node-jlink,1,false
