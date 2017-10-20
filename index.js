@@ -17,41 +17,40 @@
 
 	exports.isJLinkEXEInstalled = function(){
 		return isInstalled( jlinkexe.JLinkExe );
-		// return jlinkexe.executeJlinkCommands( ["exit"] )
-		// .then( function( result ){
-		// 	return ( result.code === 0 && !result.error );
-		// });
+	};
 
+	function _perform( commands ){
+		return jlinkexe.executeJlinkCommands( commands )
+		.then( function( result ){
+			return ( result.code === 0 && !result.error );
+		});
+	}
+
+	const _commands = {
+		reset: ["w4 40000544 1", "si 0", "tck0", "t0", "sleep 10", "t1", "r" ],
+		pinReset: ["w4 40000544 1", "r" ],
+		eraseAll: ["h", "w4 4001e504 2", "w4 4001e50c 1", "sleep 100", "r"]
 	};
 
 	/**
 	 * @return Promise, resolve( true ) or reject( Error )
 	 */
 	exports.reset = function(){
-		return jlinkexe.executeJlinkCommands( ["r","g"] )
-		.then( function( result ){
-			return ( result.code === 0 && !result.error );
-		});
+		return _perform( _commands.reset );
 	};
 
 	/**
 	 * @return Promise, resolve( true ) or reject( Error )
 	 */
 	exports.pinReset = function(){
-		return jlinkexe.executeJlinkCommands( ["w4 40000544 1", "r"])
-		.then( function( result ){
-			return ( result.code === 0 && !result.error );
-		});
+		return _perform( _commands.pinReset );
 	};
 
 	/**
 	 * @return Promise, resolve( true ) or reject( Error )
 	 */
 	exports.eraseAll = function(){
-		return jlinkexe.executeJlinkCommands( ["h", "w4 4001e504 2", "w4 4001e50c 1", "sleep 100", "r"])
-		.then( function( result ){
-			return ( result.code === 0 && !result.error );
-		});
+		return _perform( _commands.eraseAll );
 	};
 
 	/**

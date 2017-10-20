@@ -6,6 +6,9 @@
 		console.log( 'JLinkEXE isInstalled = ', isInstalled );
 	})
 	.then( function(){
+		return jlink.program( "./test/data/merged_0.1.7.hex" )
+	})
+	.then( function(){
 		return jlink.readmem( 0x000000000, 0x4 )
 	})
 	.then( function( buffer ){
@@ -30,7 +33,7 @@
 // 	console.log( "Reset Result: ", result );
 // })
 	.catch( function( error ){
-		console.log("Test Failed");
+		console.log("Test Failed: " + error.message );
 		throw error;
 	});
 })();

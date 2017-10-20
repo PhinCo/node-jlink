@@ -1,9 +1,5 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="cli h" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="bin/cli.js" application-parameters="h" working-dir="$PROJECT_DIR$">
-    <profiling v8-profiler-path="" />
-    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSProfilingRunConfigurationExtension">
-      <profiling v8-profiler-path="" />
-    </EXTENSION>
     <method />
   </configuration>
 </component>

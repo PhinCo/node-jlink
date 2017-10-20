@@ -1,10 +1,10 @@
 {
   "name": "@connectedyard/node-jlink",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "jLinkexe driver for nodejs",
   "main": "index.js",
   "bin": {
-    "jlink": "./bin/cli.js"
+    "node-jlink": "./bin/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
