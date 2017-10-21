@@ -1,11 +1,17 @@
 ( function(){
 
-	var jlinkexe = require('./lib/jlinkexe');
-	var utils = require('./lib/utils');
-	var spawn = require('child_process').spawn;
-	var isInstalled = require('./lib/is_installed');
+	const jlinkexe = require('./lib/jlinkexe');
+	const utils = require('./lib/utils');
+	const isInstalled = require('./lib/is_installed');
+
+	let debug = false;
 
 	exports.jlinkexe = jlinkexe;
+
+	exports.setDebug = function( flag ){
+		debug = flag;
+		jlinkexe.setDebug = flag;
+	};
 
 	exports.setJlinkEXECommand = function( command ){
 		jlinkexe.JLinkExe = command;
@@ -20,14 +26,14 @@
 	};
 
 	function _perform( commands ){
-		return jlinkexe.executeJlinkCommands( commands )
+		return jlinkexe.executeJlinkCommands( commands, { debug: debug } )
 		.then( function( result ){
 			return ( result.code === 0 && !result.error );
 		});
 	}
 
 	const _commands = {
-		reset: ["w4 40000544 1", "si 0", "tck0", "t0", "sleep 10", "t1", "r" ],
+		reset: ["w4 40000544 1", "si 0","tck0", "t0", "t1", "sleep 10" ],
 		pinReset: ["w4 40000544 1", "r" ],
 		eraseAll: ["h", "w4 4001e504 2", "w4 4001e50c 1", "sleep 100", "r"]
 	};
@@ -58,7 +64,7 @@
 	 */
 	exports.program = function( firmwareFilePath ){
 		if( !firmwareFilePath ) throw new Error("node-jlink: flash() requires firmwareFilePath");
-		return jlinkexe.executeJlinkCommands( ["r", "h", "loadfile " + firmwareFilePath, "r", "g" ])
+		return jlinkexe.executeJlinkCommands( ["r", "h", "loadfile " + firmwareFilePath, "r", "g" ], { debug: debug })
 		.then( function( result ){
 			return ( result.code === 0 && !result.error );
 		});
@@ -76,8 +82,8 @@
 		if( address % 4 !== 0 ) throw new Error("node-jlink: readmMem() address must be 32 bit aligned");
 		if( numBytes % 4 !== 0 ) throw new Error("node-jlink: readmMem() numBytes must be 32 bit aligned");
 
-		var memCommand = "mem 0x" + utils.numberToHexString( address, 8) + ", 0x" + utils.numberToHexString( numBytes, 8 );
-		return jlinkexe.executeJlinkCommands( ["h", memCommand ] )
+		const memCommand = "mem 0x" + utils.numberToHexString( address, 8) + ", 0x" + utils.numberToHexString( numBytes, 8 );
+		return jlinkexe.executeJlinkCommands( ["h", memCommand ], { debug: debug } )
 		.then( function( result ){
 			return jlinkexe.parseMemoryStringToBuffer( result.stdout, address, numBytes );
 		});
@@ -98,35 +104,20 @@
 	};
 
 	exports.identify = function(){
-		function extractText( string, pattern ){
-			var matches = string.match( pattern );
-			if( matches && matches.length >= 2 ) return matches[1];
-			return null;
-		}
-
 		return jlinkexe.executeJlinkCommands()
 			.then( function( result ){
-				var dllVersion = extractText( result.stdout, "DLL version V(.*)," );
-				var serialNumber = extractText( result.stdout, "S\/N: (.*)" );
-				var firmware = extractText( result.stdout, "Firmware: (.*)" );
-
-				var output = {};
-				if( dllVersion ) output.dllVersion = dllVersion;
-				if( serialNumber ) output.serialNumber = serialNumber;
-				if( firmware ) output.firmware = firmware;
-
-				return output;
+				return jlinkexe.parseJLinkVersionInfo( result.stdout );
 			})
-			.catch( function( error ){
-				if( error && error.message && error.message.indexOf("Can not connect") !== -1 ){
-					return Promise.resolve();
-				}
-				throw error;
-			});
+			// .catch( function( error ){
+			// 	if( error && error.message && error.message.indexOf("Can not connect") !== -1 ){
+			// 		return Promise.reject( new Error( "node-jlink: Could not connect to JLink"));
+			// 	}
+			// 	return Promise.reject( )
+			// });
 	};
 
 	exports.resume = function(){
-		return jlinkexe.executeJlinkCommands( ["g"])
+		return jlinkexe.executeJlinkCommands( ["g"], { debug: debug })
 		.then( function( result ){
 			return ( result.code === 0 && !result.error );
 		});
@@ -135,6 +126,7 @@
 	/**
 	 *
 	 * @param arrayOfCommands
+	 * @param options
 	 * @return Promise, resolve( Result ) or reject( Error )
 	 *
 	 * Result Format:
@@ -146,8 +138,9 @@
 	 * 	}
 	 */
 
-	exports.executeCommands = function( arrayOfCommands ){
-		return jlinkexe.executeJlinkCommands( arrayOfCommands );
+	exports.executeCommands = function( arrayOfCommands, options ){
+		if( !options ) options = { debug: debug };
+		return jlinkexe.executeJlinkCommands( arrayOfCommands, options );
 	}
 
 })();

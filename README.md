@@ -4,9 +4,17 @@ NodeJS driver for the Segger JLink command line tool, jlinkexe, including conven
 
 Calls the jlinkexe cli tool for maximum compatibility. Tested on Windows, MacOSX and Raspberry Pi.
 
-All commands return promises.
+## Command Line Usage
 
-## Usage
+`npm install -g @connectedyard/node-jlink`
+
+### Usage
+
+`Usage: node-jlink [options] <commands>`
+
+## Module Usage
+
+All commands return promises.
 
 ```
 var jlink = require("node-jlink");

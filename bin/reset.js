@@ -4,20 +4,16 @@
 
 	'use strict';
 
-	const jlink = require('../lib/jlinkexe');
+	const jlink = require('../index');
 	const program = require('commander');
 
 	program
 	.option('-v, --verbose', 'set verbose output')
-	.arguments( "<commands>" )
 	.parse( process.argv );
 
-	if( !program.args || program.args.length === 0 ){
-		console.log( "<commands> required");
-		return;
-	}
+	jlink.setDebug( program.verbose );
 
-	return jlink.executeJlinkCommands( program.args, { debug: program.verbose } )
+	return jlink.reset()
 	.catch( function( error ){
 		console.error( error.message );
 		console.error("FAILED");
