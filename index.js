@@ -85,8 +85,7 @@
 		const memCommand = `mem 0x${utils.numberToHexString( address, 8)}, 0x${utils.numberToHexString( numBytes, 8 )}`;
 		return jlinkexe.executeJlinkCommands( ["h", memCommand ], { debug: debug } )
 			.then( function( result ){
-				console.error( `stdout: \n${result.stdout}\n`)
-				console.error( `parseMemoryStringToBuffer( ${utils.numberToHexString(address, 8)}, ${numBytes} )`);
+
 				return jlinkexe.parseMemoryStringToBuffer( result.stdout, address, numBytes );
 			})
 			.catch( function(error){
