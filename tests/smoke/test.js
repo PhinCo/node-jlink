@@ -1,7 +1,7 @@
 ( function(){
 
-	const jlink = require("../index");
-	const utils = require("../lib/utils");
+	const jlink = require("../../index");
+	const utils = require("../../lib/utils");
 
 	jlink.setDebug( false );
 
@@ -15,7 +15,7 @@
 	// })
 	// .then( () => {
 	// 	console.log("Programming");
-	// 	return jlink.program( "./test/data/merged_0.1.7.hex" )
+	// 	return jlink.program( "./tests/data/merged_0.1.7.hex" )
 	// })
 	.then( () => {
 		console.log("Reading 0x10001080 as Buffer");

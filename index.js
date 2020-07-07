@@ -73,7 +73,7 @@
 	/**
 	 *
 	 * @param address: must be word aligned (default 0)
-	 * @param numBytes: must be word aligend (default 4)
+	 * @param numBytes: must be word aligned (default 4)
 	 * @return Promise, resolve( Buffer ) or reject( Error )
 	 */
 	exports.readmem = function( address, numBytes ){
@@ -82,11 +82,18 @@
 		if( address % 4 !== 0 ) throw new Error("node-jlink: readmMem() address must be 32 bit aligned");
 		if( numBytes % 4 !== 0 ) throw new Error("node-jlink: readmMem() numBytes must be 32 bit aligned");
 
-		const memCommand = "mem 0x" + utils.numberToHexString( address, 8) + ", 0x" + utils.numberToHexString( numBytes, 8 );
+		const memCommand = `mem 0x${utils.numberToHexString( address, 8)}, 0x${utils.numberToHexString( numBytes, 8 )}`;
 		return jlinkexe.executeJlinkCommands( ["h", memCommand ], { debug: debug } )
-		.then( function( result ){
-			return jlinkexe.parseMemoryStringToBuffer( result.stdout, address, numBytes );
-		});
+			.then( function( result ){
+				console.error( `stdout: \n${result.stdout}\n`)
+				console.error( `parseMemoryStringToBuffer( ${utils.numberToHexString(address, 8)}, ${numBytes} )`);
+				return jlinkexe.parseMemoryStringToBuffer( result.stdout, address, numBytes );
+			})
+			.catch( function(error){
+				console.error( `Failed to read ${numBytes} bytes from 0x${utils.numberToHexString(address, 8)}`);
+				console.error( `Command was: "${memCommand}"`);
+				throw error;
+			});
 	};
 
 	exports.readWordLE = function( address ){

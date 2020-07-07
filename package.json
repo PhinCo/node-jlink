@@ -7,7 +7,7 @@
     "node-jlink": "./bin/cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/mocha/bin/_mocha -u bdd --timeout 3000 --colors --exit tests/unit --recursive"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,9 @@
     "bluebird": "^3.4.6",
     "commander": "^2.9.0",
     "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1"
   }
 }
