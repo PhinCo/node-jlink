@@ -1,16 +1,36 @@
 # node-jlink
 
-NodeJS driver for the Segger JLink command line tool, jlinkexe, including conveniences found in nrfjprog (Nordic's commandline tool for the NRF series of micro-controllers).
+A NodeJS alternative to nrfjprog
 
-Calls the jlinkexe cli tool for maximum compatibility. Tested on Windows, MacOSX and Raspberry Pi.
+This is a NodeJS driver for the Segger JLink command line tool, `jlinkexe`, 
+including conveniences found in nrfjprog 
+(Nordic's commandline tool for the NRF series of micro-controllers).
 
-## Command Line Usage
+Calls the jlinkexe cli tool for maximum compatibility. 
+Tested on Windows, MacOS and Raspberry Pi.
 
-`npm install -g @connectedyard/node-jlink`
+## Getting Started
 
-### Usage
+First, install the [nRF Command line Tools](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Command-Line-Tools),
+including the jlink cli, `Jlinkexe`
+   
+Then install `node-jlink`
+
+```shell
+npm install -g @connectedyard/node-jlink
+```
+
+Test you installation
+
+```shell
+node-jlink -t
+```
+
+### Command line Usage
 
 `Usage: node-jlink [options] <commands>`
+
+All args after options will be sent to the jlink exe as commands, followed by `exit`
 
 ## Module Usage
 
@@ -69,6 +89,14 @@ A complete list of JLinkEXE commands are available at https://www.segger.com/adm
 
 ### JLinkEXE
 
-By default, the JLinkEXE command is expected to be found on the path as `jlinkexe`. The default commandline options to jlinkexe are `"-device nrf51822 -if swd -speed 4000"`.
+By default, the JLinkEXE command is expected to be found on the path as `jlinkexe`. 
+The default commandline options to jlinkexe are `"-device nrf51822 -if swd -speed 4000"`.
+These options will be sent with every command unless `options` are passed to `executeCommands`
 
 To change these values, set `jlink.JLinkExe` and `jlink.JLinkExeOptions`.
+
+To test your executable path, call `jlink.isJLinkEXEInstalled()` or run 
+
+```shell
+node-jlink -t
+```
